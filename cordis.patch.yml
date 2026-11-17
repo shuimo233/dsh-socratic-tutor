@@ -1,0 +1,3 @@
+- insert:
+    - id: socratic-tutor
+      name: './lib/index.js'

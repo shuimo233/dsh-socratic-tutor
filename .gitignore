@@ -1,0 +1,12 @@
+node_modules/
+lib/
+preview-dist/
+artifacts/
+*.tgz
+*.log
+.DS_Store
+.harness-smoke/
+.harness-handwriting/
+GAOKAO-LIVE-TEST.md
+RESEARCH-similar-tutors.md
+VERIFICATION.md
