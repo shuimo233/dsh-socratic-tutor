@@ -1,42 +1,24 @@
 # 循思 · DeepSeek Harness 数学草稿本
 
-一个可加载到 DeepSeek Harness Web UI 的数学辅导插件。学生可以手写或逐段编辑公式和说明，在草稿本右侧和 DeepSeek 讨论卡点。
+循思是 [DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness) 的数学辅导插件。学生可以在左侧写公式、手绘和作图，卡住时标出疑问，和右侧的 DeepSeek 讨论下一步。草稿和讨论按题保存在当前浏览器。
 
-## 先体验界面
+![循思工作台，左侧为题目、公式与几何草稿，右侧为卡点讨论](docs/workbench.png)
 
-在项目目录中使用 Node.js 22.19 或更新版本运行以下命令。
+## 安装
 
-```powershell
-npm ci
-npm run build
-npm run preview
-```
+需要 Node.js 22.19 或更新版本。以下命令使用已验证的 Harness `0.2.2-rc.1` 和 `web` 配置。
 
-打开本地预览就可以体验手写、编辑公式和保存草稿。连接模型的功能在 Harness 内使用。MathLive 和数学字体随项目构建打包。 [本地交互预览](http://127.0.0.1:4178)
+1. 下载最新版本的 `dsh-socratic-tutor-*.tgz`。 [GitHub Releases](https://github.com/shuimo233/dsh-socratic-tutor/releases)
+2. 在下载目录运行以下命令。使用其他版本时，把文件名替换为实际下载的文件名。
 
-## 加载到 Harness
+   ```sh
+   npx @deepseek-ai/dsh@0.2.2-rc.1 plugin --profile web add ./dsh-socratic-tutor-0.2.35.tgz
+   npx @deepseek-ai/dsh@0.2.2-rc.1 --profile web
+   ```
 
-当前本地验证使用 `@deepseek-ai/dsh@0.2.2-rc.1`。Harness 属于预览阶段，升级版本后需要重新核对界面接口。
+3. 打开终端提供的本地地址，点击左侧栏「循思」。讨论与 AI 出题复用 Harness 当前连接的模型，手写识别需要支持图片输入的模型，联网搜题需要已配置网页搜索。
 
-### 方法一：本地开发
-
-构建完成后，在项目目录中加载 `cordis.patch.yml`。
-
-```powershell
-npx @deepseek-ai/dsh@0.2.2-rc.1 --profile web --patch ./cordis.patch.yml
-```
-
-在 DSH 左侧栏点击「循思」打开独立工作台。点击「返回对话」可回到原来的聊天。
-
-### 方法二：安装打包文件
-
-```powershell
-npm run pack:plugin
-npx @deepseek-ai/dsh@0.2.2-rc.1 plugin --profile web add ./dsh-socratic-tutor-0.2.34.tgz
-npx @deepseek-ai/dsh@0.2.2-rc.1 --profile web
-```
-
-使用打包安装和开发补丁中的一种方式，避免重复加载。
+卸载时运行 `npx @deepseek-ai/dsh@0.2.2-rc.1 plugin --profile web remove dsh-socratic-tutor`，然后重新启动 Harness。
 
 ## 一次完整操作
 
@@ -99,12 +81,21 @@ npx @deepseek-ai/dsh@0.2.2-rc.1 --profile web
 
 ## 开发与验证
 
-```powershell
+```sh
+git clone https://github.com/shuimo233/dsh-socratic-tutor.git
+cd dsh-socratic-tutor
+npm ci
+npm run build
+npm run preview
+```
+
+打开本地预览可体验手写、公式和草稿保存。模型功能在 Harness 内使用。开发时可运行 `npm run pack:plugin`，然后按安装步骤将生成的 `.tgz` 装入测试配置。 [本地交互预览](http://127.0.0.1:4178)
+
+```sh
 npm run typecheck
 npm test
 npm run build
 npm run test:ui
-npm pack
 ```
 
 `test:ui` 自动启动临时本地预览服务，使用 Playwright 检查公式键盘输入、讨论的草稿上下文和后续追问、刷新恢复、撤销重做、无效导入和窄屏布局。可设置 `TUTOR_CHROME_PATH` 指向本机 Chromium；否则优先使用 Playwright 安装的浏览器。
@@ -131,3 +122,7 @@ npm pack
 - [MathLive 编辑器](https://mathlive.io/mathfield/)
 
 MathLive 采用 MIT 许可证，分发包保留其许可证于 `lib/MATHLIVE-LICENSE.txt`。
+
+## 反馈
+
+反馈时可以附上 Harness 版本、浏览器和复现步骤。 [GitHub Issues](https://github.com/shuimo233/dsh-socratic-tutor/issues)

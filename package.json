@@ -1,8 +1,14 @@
 {
   "name": "dsh-socratic-tutor",
-  "version": "0.2.34",
+  "version": "0.2.35",
   "description": "A step-by-step mathematical scratchpad and Socratic tutoring plugin for DeepSeek Harness.",
   "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shuimo233/dsh-socratic-tutor.git"
+  },
+  "bugs": { "url": "https://github.com/shuimo233/dsh-socratic-tutor/issues" },
+  "keywords": ["deepseek-harness", "dsh-plugin", "math", "education"],
   "main": "lib/index.js",
   "exports": {
     ".": "./lib/index.js",
@@ -13,12 +19,15 @@
   "files": [
     "lib",
     "locale",
+    "cordis.patch.yml",
+    "docs/workbench.png",
     "README.md"
   ],
   "engines": {
     "node": ">=22.19.0"
   },
   "dsh": {
+    "bundle": { "patch": "./cordis.patch.yml" },
     "client": {
       "platform": "web",
       "inject": [
@@ -35,9 +44,6 @@
     "test:ui": "node scripts/smoke.mjs",
     "preview": "node scripts/preview.mjs",
     "pack:plugin": "npm run build && npm pack"
-  },
-  "peerDependencies": {
-    "@deepseek-ai/cordis": "~4.0.5 || ~4.1.0"
   },
   "dependencies": {
     "mathlive": "0.111.4"
